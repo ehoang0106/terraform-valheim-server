@@ -25,5 +25,9 @@ variable "instance_name" {
 variable "key_name" {
     default = "ValheimKeyPair"
     type = string
-  
+}
+
+variable "number_of_instances" {
+    default = 1
+    type = number
 }

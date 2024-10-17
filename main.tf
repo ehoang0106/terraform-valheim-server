@@ -36,19 +36,24 @@ resource "aws_security_group" "valheim_sg" {
   }
 }
 
-resource "aws_instance" "valheim-server" {
-  ami = "${var.ami_id}"
-  instance_type = "${var.instance_type}"
+terraform {
+    required_providers {
+        aws = {
+        source  = "hashicorp/aws"
+        }
+    }
+}
+provider "aws" {
+    region = "us-west-2"
+    access_key = "${var.access_key}"
+    secret_key = "${var.secret_key}"
+}       
 
-  key_name = "${var.key_name}"
-  root_block_device {
-    volume_size = 8
-    delete_on_termination = true
-  }
-  security_groups = [aws_security_group.valheim_sg.name]
-  
-  
-  tags = {
-    Name = "${var.instance_name}"
-  }
+resource "aws_instance" "valheim-server" {
+    ami = var.ami_id
+    count = var.number_of_instances
+    instance_type = var.instance_type
+    tags = {
+        Name = "valheim-server"
+    }
 }
