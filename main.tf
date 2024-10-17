@@ -44,16 +44,50 @@ terraform {
     }
 }
 provider "aws" {
-    region = "us-west-2"
+    region = var.region
     access_key = "${var.access_key}"
     secret_key = "${var.secret_key}"
 }       
 
 resource "aws_instance" "valheim-server" {
     ami = var.ami_id
-    count = var.number_of_instances
     instance_type = var.instance_type
+    vpc_security_group_ids = [aws_security_group.valheim_sg.id]
+    root_block_device {
+    volume_size = 8
+    delete_on_termination = true
+  }
     tags = {
         Name = "valheim-server"
     }
+
+    user_data = <<-EOF
+    #!/bin/bash
+    sudo apt update
+    sudo snap install docker
+    sudo addgroup --system docker
+    sudo adduser ubuntu docker
+    newgrp docker
+    sudo snap disable docker
+    sudo snap enable docker
+
+    mkdir -p /home/ubuntu/valheim/saves
+    mkdir -p /home/ubuntu/valheim/server
+
+    docker run -d --name="valheim" \
+    --net='bridge' \
+    --restart=unless-stopped \
+    -e PORT=2456 \
+    -e NAME="lazyValheim" \
+    -e WORLD="lazyValheim" \
+    -e TZ="Australia/Melbourne" \
+    -e PASSWORD="Valheim24" \
+    -e PUBLIC=1 \
+    -p 2456:2456/udp \
+    -p 2457:2457/udp \
+    -p 2458:2458/udp \
+    -v ./valheim/saves:/home/steam/.config/unity3d/IronGate/Valheim \
+    -v ./valheim/server:/home/steam/valheim \
+    'mbround18/valheim:latest'
+    EOF
 }
