@@ -40,7 +40,7 @@ resource "aws_instance" "valheim-server" {
   ami = "${var.ami_id}"
   instance_type = "${var.instance_type}"
 
-  key_name = aws_security_group.valheim_sg.name
+  key_name = "${var.key_name}"
   root_block_device {
     volume_size = 8
     delete_on_termination = true

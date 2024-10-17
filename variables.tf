@@ -21,3 +21,9 @@ variable "region" {
 variable "instance_name" {
     default = "valheim-server"
 }
+
+variable "key_name" {
+    default = "ValheimKeyPair"
+    type = string
+  
+}
