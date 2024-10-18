@@ -50,6 +50,8 @@ jobs:
         #password is for server password
         run: |
           cat > "./vars.tfvars" << EOF
+            aws_access_key = "${{ secrets.AWS_ACCESS_KEY_ID }}"
+            aws_secret_key = "${{ secrets.AWS_SECRET_ACCESS_KEY}}"
             password = "${{ secrets.PASSWORD }}"
           EOF
 
