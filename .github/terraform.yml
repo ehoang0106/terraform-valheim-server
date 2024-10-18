@@ -1,0 +1,65 @@
+name: 'Terraform'
+
+on:
+  workflow_dispatch:
+    inputs:
+      terraform_job:
+        type: choice
+        description: 'Terraform job to run'
+        options:
+          - 'plan'
+          - 'apply'
+          - 'destroy'
+
+  permissions:
+    contents: read
+    id-token: write
+
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+    environment: production
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./terraform
+      steps:
+        - name: Checkout repository
+          uses: actions/checkout@v2
+
+        #install terraform
+        - name: Setup Terraform
+          uses: hashicorp/setup-terraform@v1
+        
+        #configure aws
+        - name: Configure AWS credentials
+          uses: aws-actions/configure-aws-credentials@v1.7.0
+          with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-region: 'us-west-1'
+
+        #intialize terraform
+        - name: Terraform Init
+          run: terraform init
+        
+        # generate tfvars file
+        - name: Generate vars.tfvars
+          #password is for server password
+          run: |
+            cat > "./vars.tfvars" << EOF
+              password = "${{ secrets.PASSWORD }}"
+            EOF
+
+
+        - name: Terraform plan
+          run: terraform plan -var-file=vars.tfvars -input=false
+
+        - name: Terraform apply
+          run: terraform apply -var-file=vars.tfvars -auto-approve -input=false
+
+        - name: Terraform destroy
+          if: ${{ inputs.terraform_job == 'destroy' }}
+          run: terraform destroy -var-file=vars.tfvars -auto-approve -input=false

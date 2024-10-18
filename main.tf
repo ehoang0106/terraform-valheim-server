@@ -56,38 +56,12 @@ resource "aws_instance" "valheim-server" {
     root_block_device {
     volume_size = 8
     delete_on_termination = true
-  }
+    }
+
+    user_data = base64encode(data.template_file.user_data.rendered)
+
     tags = {
         Name = "valheim-server"
     }
 
-    user_data = <<-EOF
-        #!/bin/bash
-sudo apt update
-sudo snap install docker
-sudo addgroup --system docker
-sudo adduser ubuntu docker
-newgrp docker
-sudo snap disable docker
-sudo snap enable docker
-
-mkdir -p /home/ubuntu/valheim/saves
-mkdir -p /home/ubuntu/valheim/server
-
-docker run -d --name="valheim" \
---net='bridge' \
---restart=unless-stopped \
--e PORT=2456 \
--e NAME="lazyValheim" \
--e WORLD="lazyValheim" \
--e TZ="Australia/Melbourne" \
--e PASSWORD="${password}" \
--e PUBLIC=1 \
--p 2456:2456/udp \
--p 2457:2457/udp \
--p 2458:2458/udp \
--v ./valheim/saves:/home/steam/.config/unity3d/IronGate/Valheim \
--v ./valheim/server:/home/steam/valheim \
-'mbround18/valheim:latest'
-    EOF
 }

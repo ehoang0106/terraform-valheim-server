@@ -31,3 +31,9 @@ variable "number_of_instances" {
     default = 1
     type = number
 }
+
+variable "password" {
+    default = "password"
+    type = string
+
+}
