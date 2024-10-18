@@ -1,4 +1,10 @@
+# variable "access_key" {
+#     description = "value of access"
+# }
 
+# variable "secret_key" {
+#     description = "value of secret"   
+# }
 
 variable "instance_type" {
     default = "t3.small"
