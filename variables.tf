@@ -7,7 +7,7 @@ variable "secret_key" {
 }
 
 variable "instance_type" {
-    default = "t3.small"
+    default = "t3.large"
 }
 
 variable "ami_id" {
