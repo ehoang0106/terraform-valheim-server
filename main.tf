@@ -42,7 +42,7 @@ resource "aws_instance" "valheim-server" {
     instance_type = var.instance_type
     vpc_security_group_ids = [aws_security_group.valheim_sg.id]
     root_block_device {
-    volume_size = 8
+    volume_size = 10
     delete_on_termination = true
     }
 
