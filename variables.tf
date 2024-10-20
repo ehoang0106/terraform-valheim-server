@@ -7,7 +7,7 @@ variable "secret_key" {
 }
 
 variable "instance_type" {
-    default = "t3.large"
+    default = "t3.medium"
 }
 
 variable "ami_id" {
@@ -15,7 +15,7 @@ variable "ami_id" {
 }
 
 variable "region" {
-    default = "us-east-1"
+    default = "us-west-1"
 }
 
 variable "instance_name" {
