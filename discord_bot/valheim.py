@@ -22,7 +22,7 @@ def start_server():
     print(f'EC2 instance started - State: {instance.state["Name"]}')
     
     #message to discord
-    message = f'Valheim server has been started with new IP address: `{ip_address}`.'
+    message = f'👏 Yay! Valheim server has been started. \nHere is your new IP Address:\n **`{ip_address}`**'
     return message
 
 def stop_server():
@@ -37,6 +37,6 @@ def stop_server():
     print(f'EC2 instance stopped - State: {instance.state["Name"]}')
     
     #message to discord
-    message = f'Valheim server has been stopped. Instance ID: {instance.id}'
+    message = f'🛑 Valheim server has been stopped ❌'
     return message
 
