@@ -10,18 +10,13 @@ TOKEN=config['DISCORD_TOKEN']
 PREFIX=config['PREFIX']
 
 bot = discord.Client()
-
-### PREFIX ###
 bot = commands.Bot(command_prefix=PREFIX)
-
-# succesfully message
 
 
 @bot.event
 async def on_ready():
     print(f'{bot.user} has connected to Discord!')
-
-### CALL ###
+    await bot.change_presence(activity=discord.Game(name="Valheim Server"))
 
 @bot.command(name='up')
 async def up(ctx):
@@ -32,8 +27,6 @@ async def up(ctx):
     # Send message to discord
     await ctx.send(message)
     
-
-
 @bot.command(name='down')
 async def down(ctx):
     await ctx.send( " 🫸 Stopping the server. Please wait a moment!")
