@@ -1,21 +1,21 @@
-variable "access_key" {
-    description = "value of access"
-}
+#variable "access_key" {
+    #description = "value of access"
+#}
 
-variable "secret_key" {
-    description = "value of secret"   
-}
+#variable "secret_key" {
+    #description = "value of secret"   
+#}
 
 variable "instance_type" {
-    default = "t3.small"
+    default = "t3.medium"
 }
 
 variable "ami_id" {
-    default = "ami-005fc0f236362e99f"
+    default = "ami-0da424eb883458071"
 }
 
 variable "region" {
-    default = "us-east-1"
+    default = "us-west-1"
 }
 
 variable "instance_name" {
