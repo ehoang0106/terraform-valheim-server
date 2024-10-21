@@ -20,6 +20,7 @@ def start_server():
     instance.wait_until_running()
     #wait until instance is running and get the public ip address
     ip_address=instance.public_ip_address #put this before the wait_until_running() method will return None
+    
     #message to discord
     message = f'👏 Yay! Valheim server has been started. \nHere is your new IP Address:\n **`{ip_address}`**'
     return message
@@ -29,6 +30,7 @@ def stop_server():
     ec2_resource=boto3.resource('ec2', region_name=data['region'])
     instance=ec2_resource.Instance(data['instance_id'])
     ip_address=instance.public_ip_address
+    
     #stop instance
     instance.stop()
     print(f'Stopping EC2 instance: {instance.id}')
