@@ -1,6 +1,6 @@
 ## Create .env to store the bot token
 
-```shell
+```py
     TOKEN = <YOUR_BOT_DISCORD_TOKEN>
     PREFIX= <YOUR_PREFIX>
 ```
