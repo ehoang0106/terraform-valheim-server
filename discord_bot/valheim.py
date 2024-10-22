@@ -22,7 +22,7 @@ def start_server():
     ip_address=instance.public_ip_address #put this before the wait_until_running() method will return None
     
     #message to discord
-    message = f'👏 Yay! Valheim server has been started. \nHere is your new IP Address:\n **`{ip_address}`**'
+    message = f'✅ Yay! Valheim server has been started. \nHere is a new server IP Address:\n **`{ip_address}`**'
     return message
 
 def stop_server():
@@ -38,6 +38,6 @@ def stop_server():
     print(f'EC2 instance stopped - State: {instance.state["Name"]}')
     
     #message to discord
-    message = f'🛑 Valheim server [**`{ip_address}`**] has been stopped ❌'
+    message = f'🛑 Valheim server [**`{ip_address}`**] has been stopped'
     return message
 

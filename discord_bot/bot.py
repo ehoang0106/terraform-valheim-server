@@ -29,7 +29,7 @@ async def up(ctx):
     
 @bot.command(name='down')
 async def down(ctx):
-    await ctx.send( " 🫸 Stopping the server. Please wait a moment!")
+    await ctx.send( " ❌ Stopping the server. Please wait a moment!")
     message = valheim.stop_server()
     print(message)
     #send message to discord
