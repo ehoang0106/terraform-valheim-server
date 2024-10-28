@@ -53,3 +53,20 @@ resource "aws_instance" "valheim-server" {
     }
 
 }
+
+resource "aws_cloudwatch_metric_alarm" "valheim-network-in-alarm" {
+    alarm_name                = "vrisng-network-in-alarm"
+    comparison_operator       = "LessThanOrEqualToThreshold"
+    evaluation_periods        = 2
+    metric_name               = "NetworkPacketsIn"
+    namespace                 = "AWS/EC2"
+    period                    = 300
+    statistic                 = "Maximum"
+    threshold                 = 300
+    alarm_description         = "Monitor network packets in"
+    dimensions = {
+        InstanceId = resource.aws_instance.valheim-instance.id
+    }
+    actions_enabled     = "true"
+    alarm_actions       = ["arn:aws:automate:us-west-1:ec2:stop"]
+}
