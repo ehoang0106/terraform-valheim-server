@@ -25,3 +25,31 @@ After that, create a `meta_data.json` in the root folder
     "instance_id": "<your aws valheim instance id>"
 }
 ```
+
+### Run docker image
+
+After the server started, you need to install docker image from [mbround18/valheim](https://hub.docker.com/r/mbround18/valheim)
+
+Here is the basic example of a docker compose. Please visit the link above for more details
+
+```
+version: "3"
+services:
+  valheim:
+    image: mbround18/valheim:latest
+    ports:
+      - 2456:2456/udp
+      - 2457:2457/udp
+      - 2458:2458/udp
+    environment:
+      PORT: 2456
+      NAME: "Created With Valheim Docker"
+      WORLD: "Dedicated"
+      PASSWORD: "Banana Phone"
+      TZ: "America/Chicago"
+      PUBLIC: 1
+    volumes:
+      - ./valheim/saves:/home/steam/.config/unity3d/IronGate/Valheim
+      - ./valheim/server:/home/steam/valheim
+
+```
