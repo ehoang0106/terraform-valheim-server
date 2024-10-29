@@ -28,7 +28,7 @@ After that, create a `meta_data.json` in the root folder
 
 ### Run docker image
 
-After using GitHub action to spin up the server using Terraform, you need to install docker image in the server from [mbround18/valheim](https://hub.docker.com/r/mbround18/valheim)
+Since terraform does not support to run the docker container, you need to manually install docker image in the server from [mbround18/valheim](https://hub.docker.com/r/mbround18/valheim)
 
 Here is the basic example of a docker compose. Please visit the link above for more details
 
