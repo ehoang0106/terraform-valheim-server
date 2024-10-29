@@ -1,3 +1,9 @@
+# Automating Valheim Server Hosting on AWS with Terraform and GitHub Actions
+
+## Create discord bot
+
+
+
 ## Create .env to store the bot token
 
 ```py
